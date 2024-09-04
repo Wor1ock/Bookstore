@@ -1,0 +1,1 @@
+create unique index IDX_BOOKSTORE_CUSTOMER_UK_EMAIL on BOOKSTORE_CUSTOMER (EMAIL) where DELETE_TS is null ;
