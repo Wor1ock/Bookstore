@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://onlineOrderEdit.caption"
+        focusComponent="form"
+        messagesPack="com.haulmont.bookstore.web.screens.onlineorder">
+    <data>
+        <instance id="onlineOrderDc"
+                  class="com.haulmont.bookstore.entity.OnlineOrder"
+                  view="onlineOrder-view">
+            <loader/>
+            <collection id="orderLinesDc" property="orderLines"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="onlineOrderDc">
+            <column width="350px">
+                <lookupField id="statusField" property="status"/>
+                <textField id="totalCostField" property="totalCost"/>
+                <pickerField id="customerField" property="customer">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+            </column>
+        </form>
+        <hbox id="editCountActions" spacing="true" align="BOTTOM_LEFT">
+            <label value="Количество строк заказа:"/>
+            <textField id="maxCountOrderLinesField" width="200px"/>
+            <button id="maxCountOrderLinesBtn" caption="msg://change"/>
+        </hbox>
+        <groupBox id="orderLinesBox" caption="msg://com.haulmont.bookstore.entity/OnlineOrder.orderLines">
+            <table id="orderLinesTable" dataContainer="orderLinesDc" width="100%" height="200px">
+                <columns>
+                    <column id="quantity"/>
+                    <column id="bookTitle"/>
+                    <column id="bookPrice"/>
+                </columns>
+                <buttonsPanel>
+                    <button id="add" caption="msg://add"/>
+                    <button id="exclude" caption="msg://exclude"/>
+                    <button id="generate" caption="msg://generate"/>
+                    <textField id="newQuantityField" caption="msg://newQuantity"/>
+                    <button id="changeQuantityBtn" caption="msg://changeQuantity"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" caption="msg://close"/>
+            <button id="confirmBtn" caption="msg://confirm"/>
+        </hbox>
+    </layout>
+</window>
