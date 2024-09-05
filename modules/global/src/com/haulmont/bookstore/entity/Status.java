@@ -7,8 +7,8 @@ import javax.annotation.Nullable;
 
 public enum Status implements EnumClass<String> {
 
-    NEW("New"),
-    CONFIRMED("Confirmed");
+    NEW("NEW"),
+    CONFIRMED("CONFIRMED");
 
     private String id;
 
