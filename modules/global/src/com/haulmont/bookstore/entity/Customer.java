@@ -19,10 +19,6 @@ public class Customer extends StandardEntity {
     @NotNull
     private String fullName;
 
-    @Column(name = "EMAIL", unique = true)
-    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$ ")
-    private String email;
-
     @OnDelete(DeletePolicy.CASCADE)
     @OneToMany(mappedBy = "customer")
     private List<OnlineOrder> onlineOrders;
@@ -47,14 +43,6 @@ public class Customer extends StandardEntity {
 
     public void setExtendedUser(ExtendedUser extendedUser) {
         this.extendedUser = extendedUser;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFullName() {

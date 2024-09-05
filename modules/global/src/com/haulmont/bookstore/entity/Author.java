@@ -19,7 +19,7 @@ public class Author extends StandardEntity {
     private String fullName;
 
     @Column(name = "EMAIL", unique = true)
-    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$ ")
+    @Email(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
     private String email;
 
     @JoinTable(name = "BOOKSTORE_BOOK_AUTHOR_LINK",

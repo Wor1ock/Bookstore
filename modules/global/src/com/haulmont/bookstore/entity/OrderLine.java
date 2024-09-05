@@ -1,6 +1,8 @@
 package com.haulmont.bookstore.entity;
 
 import com.haulmont.cuba.core.entity.StandardEntity;
+import com.haulmont.cuba.core.entity.annotation.OnDeleteInverse;
+import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -28,6 +30,8 @@ public class OrderLine extends StandardEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ONLINE_ORDER_ID")
+    @OnDeleteInverse(DeletePolicy.CASCADE)
+    @NotNull
     private OnlineOrder onlineOrder;
 
     public OnlineOrder getOnlineOrder() {

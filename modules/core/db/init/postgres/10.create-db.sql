@@ -12,8 +12,12 @@ create table BOOKSTORE_ONLINE_ORDER (
     STATUS varchar(50),
     CUSTOMER_ID uuid,
     --
+    ADDRESS_CITY varchar(100) not null,
+    ADDRESS_STREET varchar(100) not null,
+    ADDRESS_BUILDING varchar(50) not null,
+    --
     primary key (ID)
-)^
+);
 -- end BOOKSTORE_ONLINE_ORDER
 -- begin BOOKSTORE_AUTHOR
 create table BOOKSTORE_AUTHOR (
@@ -61,12 +65,12 @@ create table BOOKSTORE_BOOK (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    TITLE varchar(250),
+    TITLE varchar(250) not null,
     PRICE decimal(10, 2),
     IS_AVAILABLE boolean,
     --
     primary key (ID)
-)^
+);
 -- end BOOKSTORE_BOOK
 -- begin BOOKSTORE_ORDER_LINE
 create table BOOKSTORE_ORDER_LINE (
@@ -79,14 +83,14 @@ create table BOOKSTORE_ORDER_LINE (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    QUANTITY integer,
+    QUANTITY integer not null,
     BOOK_ID uuid,
-    BOOK_TITLE varchar(250),
+    BOOK_TITLE varchar(250) not null,
     BOOK_PRICE decimal(10, 2),
-    ONLINE_ORDER_ID uuid,
+    ONLINE_ORDER_ID uuid not null,
     --
     primary key (ID)
-)^
+);
 -- end BOOKSTORE_ORDER_LINE
 -- begin BOOKSTORE_BOOK_AUTHOR_LINK
 create table BOOKSTORE_BOOK_AUTHOR_LINK (
