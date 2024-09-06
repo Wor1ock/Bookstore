@@ -9,9 +9,9 @@ create table BOOKSTORE_ONLINE_ORDER (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    ADDRESS_CITY varchar(100),
-    ADDRESS_STREET varchar(100),
-    ADDRESS_BUILDING varchar(5),
+    ADDRESS_CITY varchar(100) not null,
+    ADDRESS_STREET varchar(100) not null,
+    ADDRESS_BUILDING varchar(5) not null,
     --
     STATUS varchar(50),
     CUSTOMER_ID uuid,
@@ -82,14 +82,14 @@ create table BOOKSTORE_ORDER_LINE (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    QUANTITY integer,
+    QUANTITY integer not null,
     BOOK_ID uuid,
-    BOOK_TITLE varchar(250),
+    BOOK_TITLE varchar(250) not null,
     BOOK_PRICE decimal(10, 2),
-    ONLINE_ORDER_ID uuid,
+    ONLINE_ORDER_ID uuid not null,
     --
     primary key (ID)
-)^
+);
 -- end BOOKSTORE_ORDER_LINE
 -- begin BOOKSTORE_BOOK_AUTHOR_LINK
 create table BOOKSTORE_BOOK_AUTHOR_LINK (
