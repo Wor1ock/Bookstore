@@ -65,6 +65,9 @@ public class OnlineOrder extends StandardEntity {
     }
 
     public BigDecimal getTotalCost() {
+        if (orderLines == null) {
+            return BigDecimal.ZERO;
+        }
         return orderLines.stream()
                 .map(orderLine -> orderLine.getBookPrice().multiply(BigDecimal.valueOf(orderLine.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
