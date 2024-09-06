@@ -9,9 +9,9 @@ create table BOOKSTORE_ONLINE_ORDER (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
-    ADDRESS_CITY varchar(100),
-    ADDRESS_STREET varchar(100),
-    ADDRESS_BUILDING varchar(5),
+    ADDRESS_CITY varchar(100) not null,
+    ADDRESS_STREET varchar(100) not null,
+    ADDRESS_BUILDING varchar(5) not null,
     --
     STATUS varchar(50),
     CUSTOMER_ID uuid,
