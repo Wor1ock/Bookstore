@@ -1,25 +1,23 @@
 package com.haulmont.bookstore.web.screens.onlineorder;
 
+import com.haulmont.bookstore.config.OrdersConfig;
 import com.haulmont.bookstore.entity.Book;
 import com.haulmont.bookstore.entity.OnlineOrder;
 import com.haulmont.bookstore.entity.OrderLine;
 import com.haulmont.bookstore.entity.Status;
-import com.haulmont.bookstore.service.BookService;
-import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.bookstore.service.AvailableBookService;
+import com.haulmont.bookstore.service.OrderLineService;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
-import com.haulmont.cuba.gui.components.LookupField;
-import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
+import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 
@@ -28,118 +26,68 @@ import java.util.stream.Collectors;
 @EditedEntityContainer("onlineOrderDc")
 @LoadDataBeforeShow
 public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
-    private static int maxCountOrderLines = 4;
+    @Inject
+    private OrdersConfig ordersConfig;
     @Inject
     private Button commitAndCloseBtn;
     @Inject
     private CollectionPropertyContainer<OrderLine> orderLinesDc;
     @Inject
-    private BookService bookService;
-    @Inject
-    private DataManager dataManager;
-    @Inject
-    private Table<OrderLine> orderLinesTable;
+    private AvailableBookService bookService;
     @Inject
     private TextField<BigDecimal> totalCostField;
     @Inject
-    private Button add;
-    @Inject
-    private LookupField<Status> statusField;
-    @Inject
-    private TextField<String> maxCountOrderLinesField;
-    @Inject
     private Notifications notifications;
     @Inject
-    private TextField<String> newQuantityField;
+    private OrderLineService orderLineService;
+    @Inject
+    private MessageBundle messageBundle;
+
+    @Subscribe
+    public void onInitEntity(InitEntityEvent<OnlineOrder> event) {
+        event.getEntity().setStatus(Status.NEW);
+    }
 
     @Subscribe
     public void onBeforeShow(BeforeShowEvent event) {
-        getEditedEntity().setStatus(Status.NEW);
-        add.setEnabled(isAvailableBooks());
-        statusField.setEditable(false);
-        totalCostField.setEditable(false);
+        commitAndCloseBtn.setEnabled(false);
     }
 
-    @Subscribe("maxCountOrderLinesBtn")
-    public void onMaxCountOrderLinesBtnClick(Button.ClickEvent event) {
-        try {
-            int count = Integer.parseInt(Objects.requireNonNull(maxCountOrderLinesField.getValue()));
-            if (count > 0) {
-                maxCountOrderLines = count;
-                maxCountOrderLinesField.setValue("");
+    @Subscribe("addOrderLineBtn")
+    public void onAddOrderLineBtnClick(Button.ClickEvent event) {
+        OrderLine orderLine = getRandUniqOrderLine();
+        if (orderLine != null) {
+            if (orderLinesDc.getMutableItems().size() < ordersConfig.getMaxCountOrderLines()) {
+                orderLinesDc.getMutableItems().add(orderLine);
+                updateTotalCost();
             } else {
-                notifications.create()
-                        .withCaption("Количество должно быть положительным")
-                        .withType(Notifications.NotificationType.WARNING)
-                        .show();
+                String message = messageBundle.getMessage("orderLinesLimit");
+                notifications.create().withCaption(message + " - " + ordersConfig.getMaxCountOrderLines()).show();
             }
-        } catch (NumberFormatException e) {
-            notifications.create()
-                    .withCaption("Неверный формат числа")
-                    .withType(Notifications.NotificationType.WARNING)
-                    .show();
+        } else {
+            String message = messageBundle.getMessage("noMoreBooks");
+            notifications.create().withCaption(message).show();
         }
-    }
-
-    @Subscribe("add")
-    public void onAddClick(Button.ClickEvent event) {
-        if (!isAvailableBooks()) {
-            notifications.create()
-                    .withCaption("Нет доступных книг")
-                    .withType(Notifications.NotificationType.HUMANIZED)
-                    .show();
-            add.setEnabled(false);
-            return;
-        }
-        if (orderLinesDc.getMutableItems().size() < maxCountOrderLines) {
-            orderLinesDc.getMutableItems().add(getRandUniqOrderLine());
-        } else notifications.create()
-                .withCaption("Максимальное количесто строк заказа - " + maxCountOrderLines)
-                .withType(Notifications.NotificationType.HUMANIZED)
-                .show();
-    }
-
-    @Subscribe("exclude")
-    public void onExcludeClick(Button.ClickEvent event) {
-        orderLinesDc.getMutableItems().remove(orderLinesTable.getSingleSelected());
     }
 
     @Subscribe("generate")
     public void onGenerateClick(Button.ClickEvent event) {
-        orderLinesDc.getMutableItems().clear();
-        orderLinesDc.getMutableItems().addAll(getRandomOrderLines());
-    }
-
-    @Subscribe("changeQuantityBtn")
-    public void onChangeQuantityBtnClick(Button.ClickEvent event) {
-        OrderLine selectedOrderLine = orderLinesTable.getSingleSelected();
-        String newQuantityStr = newQuantityField.getValue();
-
-        if (selectedOrderLine != null && newQuantityStr != null) {
-            try {
-                int newQuantity = Integer.parseInt(newQuantityStr);
-                if (newQuantity > 0) {
-                    selectedOrderLine.setQuantity(newQuantity);
-                    orderLinesDc.replaceItem(selectedOrderLine);
-                    updateTotalCost();
-                } else {
-                    notifications.create()
-                            .withCaption("Количество должно быть положительным")
-                            .withType(Notifications.NotificationType.WARNING)
-                            .show();
-                }
-            } catch (NumberFormatException e) {
-                notifications.create()
-                        .withCaption("Неверный формат числа")
-                        .withType(Notifications.NotificationType.WARNING)
-                        .show();
+        OrderLine orderLine = getRandUniqOrderLine();
+        while (orderLine != null) {
+            if (orderLinesDc.getMutableItems().size() < ordersConfig.getMaxCountOrderLines()) {
+                orderLinesDc.getMutableItems().add(orderLine);
+                orderLine = getRandUniqOrderLine();
+            } else {
+                String message = messageBundle.getMessage("orderLinesLimit");
+                notifications.create().withCaption(message + " - " + ordersConfig.getMaxCountOrderLines()).show();
+                break;
             }
-        } else {
-            notifications.create()
-                    .withCaption("Выберите строку заказа и введите новое количество")
-                    .withType(Notifications.NotificationType.HUMANIZED)
-                    .show();
         }
+        if (orderLine == null && orderLinesDc.getMutableItems().size() < ordersConfig.getMaxCountOrderLines()) {
+            String message = messageBundle.getMessage("noMoreBooks");
+            notifications.create().withCaption(message).show();
+        }
+        updateTotalCost();
     }
 
     @Subscribe("closeBtn")
@@ -151,6 +99,9 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     public void onConfirmBtnClick(Button.ClickEvent event) {
         if (!orderLinesDc.getMutableItems().isEmpty()) {
             getEditedEntity().setStatus(Status.CONFIRMED);
+        } else {
+            String message = messageBundle.getMessage("noOrderLines");
+            notifications.create().withCaption(message).show();
         }
     }
 
@@ -158,6 +109,11 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     public void onOrderLinesDcCollectionChange(CollectionContainer.CollectionChangeEvent<OrderLine> event) {
         updateTotalCost();
         commitAndCloseBtn.setEnabled(!orderLinesDc.getMutableItems().isEmpty());
+    }
+
+    @Subscribe(id = "orderLinesDc", target = Target.DATA_CONTAINER)
+    public void onOrderLinesDcItemPropertyChange(InstanceContainer.ItemPropertyChangeEvent<OrderLine> event) {
+        updateTotalCost();
     }
 
     private void updateTotalCost() {
@@ -169,17 +125,8 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
         totalCostField.setValue(totalCost);
     }
 
-    private List<OrderLine> getRandomOrderLines() {
-        List<OrderLine> orderLines = new ArrayList<>();
-        List<Book> books = bookService.getRandomBooks(maxCountOrderLines);
-        for (Book book : books) {
-            orderLines.add(getOrderLineByBook(book));
-        }
-        return orderLines;
-    }
-
     private OrderLine getRandUniqOrderLine() {
-        List<Book> availableBooks = bookService.getAvailableBooks();
+        List<Book> availableBooks = bookService.getAllBooks();
         List<Book> booksInOrder = orderLinesDc.getMutableItems().stream().map(OrderLine::getBook)
                 .collect(Collectors.toList());
         if (availableBooks.size() <= booksInOrder.size()) {
@@ -189,11 +136,11 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
                 .collect(Collectors.toList());
         int randomIndex = ThreadLocalRandom.current().nextInt(filteredBooks.size());
         Book randomBook = filteredBooks.get(randomIndex);
-        return getOrderLineByBook(randomBook);
+        return createOrderLineByBook(randomBook);
     }
 
-    private OrderLine getOrderLineByBook(Book book) {
-        OrderLine orderLine = dataManager.create(OrderLine.class);
+    private OrderLine createOrderLineByBook(Book book) {
+        OrderLine orderLine = orderLineService.createByBook(book);
         orderLine.setBook(book);
         orderLine.setBookTitle(book.getTitle());
         orderLine.setBookPrice(book.getPrice());
@@ -201,9 +148,5 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
         orderLine.setOnlineOrder(getEditedEntity());
 
         return orderLine;
-    }
-
-    private boolean isAvailableBooks() {
-        return !bookService.getAvailableBooks().isEmpty();
     }
 }

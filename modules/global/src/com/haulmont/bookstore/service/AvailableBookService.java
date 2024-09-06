@@ -4,10 +4,8 @@ import com.haulmont.bookstore.entity.Book;
 
 import java.util.List;
 
-public interface BookService {
+public interface AvailableBookService {
     String NAME = "bookstore_BookService";
 
-    List<Book> getRandomBooks(int n);
-
-    List<Book> getAvailableBooks();
+    List<Book> getAllBooks();
 }

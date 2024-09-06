@@ -11,7 +11,8 @@
         <property name="serverSelector" ref="cuba_ServerSelector"/>
         <property name="remoteServices">
             <map>
-                <entry key="bookstore_BookService" value="com.haulmont.bookstore.service.BookService"/>
+                <entry key="bookstore_BookService" value="com.haulmont.bookstore.service.AvailableBookService"/>
+                <entry key="bookstore_OrderLineService" value="com.haulmont.bookstore.service.OrderLineService"/>
             </map>
         </property>
     </bean>

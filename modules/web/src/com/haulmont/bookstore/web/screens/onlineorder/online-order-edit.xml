@@ -16,8 +16,8 @@
     <layout expand="editActions" spacing="true">
         <form id="form" dataContainer="onlineOrderDc">
             <column width="350px">
-                <lookupField id="statusField" property="status"/>
-                <textField id="totalCostField" property="totalCost"/>
+                <lookupField id="statusField" property="status" editable="false"/>
+                <textField id="totalCostField" property="totalCost" editable="false"/>
                 <pickerField id="customerField" property="customer">
                     <actions>
                         <action id="lookup" type="picker_lookup"/>
@@ -26,24 +26,21 @@
                 </pickerField>
             </column>
         </form>
-        <hbox id="editCountActions" spacing="true" align="BOTTOM_LEFT">
-            <label value="Количество строк заказа:"/>
-            <textField id="maxCountOrderLinesField" width="200px"/>
-            <button id="maxCountOrderLinesBtn" caption="msg://change"/>
-        </hbox>
         <groupBox id="orderLinesBox" caption="msg://com.haulmont.bookstore.entity/OnlineOrder.orderLines">
-            <table id="orderLinesTable" dataContainer="orderLinesDc" width="100%" height="200px">
+            <table id="orderLinesTable" dataContainer="orderLinesDc"
+                   editable="true" width="100%" height="200px">
+                <actions>
+                    <action id="exclude" type="exclude"/>
+                </actions>
                 <columns>
-                    <column id="quantity"/>
+                    <column id="quantity" editable="true"/>
                     <column id="bookTitle"/>
                     <column id="bookPrice"/>
                 </columns>
                 <buttonsPanel>
-                    <button id="add" caption="msg://add"/>
-                    <button id="exclude" caption="msg://exclude"/>
+                    <button id="addOrderLineBtn" caption="msg://add"/>
+                    <button id="excludeBtn" action="orderLinesTable.exclude"/>
                     <button id="generate" caption="msg://generate"/>
-                    <textField id="newQuantityField" caption="msg://newQuantity"/>
-                    <button id="changeQuantityBtn" caption="msg://changeQuantity"/>
                 </buttonsPanel>
             </table>
         </groupBox>
