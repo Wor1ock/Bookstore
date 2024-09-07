@@ -28,7 +28,7 @@
                 dataLoader="booksDl">
             <properties include=".*"/>
         </filter>
-        <table id="booksTable"
+        <groupTable id="booksTable"
                width="100%"
                dataContainer="booksDc">
             <actions>
@@ -48,7 +48,7 @@
                 <button id="editBtn" action="booksTable.edit"/>
                 <button id="removeBtn" action="booksTable.remove"/>
             </buttonsPanel>
-        </table>
+        </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

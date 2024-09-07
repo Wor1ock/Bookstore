@@ -24,7 +24,7 @@
                 dataLoader="authorsDl">
             <properties include=".*"/>
         </filter>
-        <table id="authorsTable"
+        <groupTable id="authorsTable"
                width="100%"
                dataContainer="authorsDc">
             <actions>
@@ -45,7 +45,7 @@
                 <button id="removeBtn" action="authorsTable.remove"/>
                 <button id="generateReportBtn" action="authorsTable.report" caption="msg://generateReportBtn.caption"/>
             </buttonsPanel>
-        </table>
+        </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>

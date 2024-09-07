@@ -41,7 +41,7 @@ public class GenerateBooksByAuthorAction extends AbstractAction {
         WebButton button = (WebButton) component;
         Frame frame = button.getFrame();
 
-        Table<Author> authorTable = (Table<Author>) frame.getComponent("authorsTable");
+        GroupTable<Author> authorTable = (GroupTable<Author>) frame.getComponent("authorsTable");
         Author selectedAuthor = authorTable.getSingleSelected();
 
         if (selectedAuthor == null) {
