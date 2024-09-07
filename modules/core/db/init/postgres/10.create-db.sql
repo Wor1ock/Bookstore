@@ -9,15 +9,15 @@ create table BOOKSTORE_ONLINE_ORDER (
     DELETE_TS timestamp,
     DELETED_BY varchar(50),
     --
+    ADDRESS_CITY varchar(100) not null,
+    ADDRESS_STREET varchar(100) not null,
+    ADDRESS_BUILDING varchar(5) not null,
+    --
     STATUS varchar(50),
     CUSTOMER_ID uuid,
     --
-    ADDRESS_CITY varchar(100) not null,
-    ADDRESS_STREET varchar(100) not null,
-    ADDRESS_BUILDING varchar(50) not null,
-    --
     primary key (ID)
-);
+)^
 -- end BOOKSTORE_ONLINE_ORDER
 -- begin BOOKSTORE_AUTHOR
 create table BOOKSTORE_AUTHOR (
@@ -48,7 +48,6 @@ create table BOOKSTORE_CUSTOMER (
     DELETED_BY varchar(50),
     --
     FULL_NAME varchar(450) not null,
-    EMAIL varchar(255),
     USER_ID uuid,
     --
     primary key (ID)
@@ -99,7 +98,3 @@ create table BOOKSTORE_BOOK_AUTHOR_LINK (
     primary key (BOOK_ID, AUTHOR_ID)
 )^
 -- end BOOKSTORE_BOOK_AUTHOR_LINK
--- begin SEC_USER
-alter table SEC_USER add column DTYPE varchar(31) ^
-update SEC_USER set DTYPE = 'bookstore_ExtendedUser' where DTYPE is null ^
--- end SEC_USER

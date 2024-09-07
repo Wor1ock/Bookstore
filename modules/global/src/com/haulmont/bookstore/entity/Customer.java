@@ -1,12 +1,11 @@
 package com.haulmont.bookstore.entity;
 
-import com.haulmont.chile.core.annotations.Composition;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
+import com.haulmont.cuba.security.entity.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -26,8 +25,7 @@ public class Customer extends StandardEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     @OnDelete(DeletePolicy.CASCADE)
-    @Composition
-    private ExtendedUser extendedUser;
+    private User user;
 
     public List<OnlineOrder> getOnlineOrders() {
         return onlineOrders;
@@ -35,14 +33,6 @@ public class Customer extends StandardEntity {
 
     public void setOnlineOrders(List<OnlineOrder> onlineOrders) {
         this.onlineOrders = onlineOrders;
-    }
-
-    public ExtendedUser getExtendedUser() {
-        return extendedUser;
-    }
-
-    public void setExtendedUser(ExtendedUser extendedUser) {
-        this.extendedUser = extendedUser;
     }
 
     public String getFullName() {

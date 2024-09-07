@@ -16,7 +16,7 @@ import java.util.List;
 public class Book extends StandardEntity {
     private static final long serialVersionUID = 3708162790511649904L;
 
-    @Column(name = "TITLE", length = 250)
+    @Column(name = "TITLE", length = 250, nullable = false)
     @NotNull
     private String title;
 

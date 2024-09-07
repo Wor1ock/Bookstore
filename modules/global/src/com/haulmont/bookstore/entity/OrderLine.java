@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class OrderLine extends StandardEntity {
     private static final long serialVersionUID = -5977329779703116070L;
 
-    @Column(name = "QUANTITY")
+    @Column(name = "QUANTITY", nullable = false)
     @NotNull
     private Integer quantity;
 
@@ -21,14 +21,14 @@ public class OrderLine extends StandardEntity {
     @JoinColumn(name = "BOOK_ID")
     private Book book;
 
-    @Column(name = "BOOK_TITLE", length = 250)
+    @Column(name = "BOOK_TITLE", length = 250, nullable = false)
     @NotNull
     private String bookTitle;
 
     @Column(name = "BOOK_PRICE", precision = 10, scale = 2)
     private BigDecimal bookPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ONLINE_ORDER_ID")
     @OnDeleteInverse(DeletePolicy.CASCADE)
     @NotNull
