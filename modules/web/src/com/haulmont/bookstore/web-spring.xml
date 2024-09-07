@@ -7,5 +7,5 @@
     <context:component-scan base-package="com.haulmont.bookstore"/>
     
     <gui:screens base-packages="com.haulmont.bookstore.web"/>
-    <gui:actions base-packages="com.haulmont.bookstore.components"/>
+    <gui:actions base-packages="com.haulmont.bookstore.actions"/>
 </beans>

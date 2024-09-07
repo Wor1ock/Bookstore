@@ -1,4 +1,4 @@
-package com.haulmont.bookstore.components;
+package com.haulmont.bookstore.actions;
 
 import com.haulmont.bookstore.entity.Author;
 import com.haulmont.bookstore.web.screens.author.AuthorBrowse;
@@ -6,8 +6,8 @@ import com.haulmont.cuba.core.entity.FileDescriptor;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.Messages;
 import com.haulmont.cuba.gui.components.*;
+import com.haulmont.cuba.gui.components.actions.ItemTrackingAction;
 import com.haulmont.cuba.gui.export.ExportDisplay;
-import com.haulmont.cuba.web.gui.components.WebButton;
 import com.haulmont.reports.app.service.ReportService;
 import com.haulmont.reports.entity.Report;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ActionType("generateBooksByAuthorReport")
-public class GenerateBooksByAuthorAction extends AbstractAction {
+public class GenerateBooksByAuthorAction extends ItemTrackingAction {
 
     private static final String REPORT_CODE = "BOOKSBYAUTHOR";
 
@@ -38,11 +38,8 @@ public class GenerateBooksByAuthorAction extends AbstractAction {
 
     @Override
     public void actionPerform(Component component) {
-        WebButton button = (WebButton) component;
-        Frame frame = button.getFrame();
-
-        GroupTable<Author> authorTable = (GroupTable<Author>) frame.getComponent("authorsTable");
-        Author selectedAuthor = authorTable.getSingleSelected();
+        Frame frame = getTarget().getFrame();
+        Author selectedAuthor = (Author) getTarget().getSingleSelected();
 
         if (selectedAuthor == null) {
             showNotificationForNoSelection(frame);
@@ -64,13 +61,11 @@ public class GenerateBooksByAuthorAction extends AbstractAction {
                 log.info("Report created successfully: {}", fileDescriptor);
             } else {
                 log.error("Failed to create report for author: {}", selectedAuthor);
-                frame.showNotification(messages.getMessage(AuthorBrowse.class, "reportCreationFailedMessage"),
-                        Frame.NotificationType.ERROR);
+                showNotificationForReportCreationFailed(frame);
             }
         } catch (Exception e) {
             log.error("Error while generating report for author: {}", selectedAuthor, e);
-            frame.showNotification(messages.getMessage(AuthorBrowse.class, "reportCreationFailedMessage"),
-                    Frame.NotificationType.ERROR);
+            showNotificationForReportCreationFailed(frame);
         }
     }
 
@@ -89,7 +84,12 @@ public class GenerateBooksByAuthorAction extends AbstractAction {
     }
 
     private void showNotificationForNoSelection(Frame frame) {
-        frame.showNotification(messages.getMessage(AuthorBrowse.class, "selectOneAuthorMessage"),
+        frame.showNotification(messages.getMessage(getClass(), "selectOneAuthorMessage"),
                 Frame.NotificationType.TRAY);
+    }
+
+    private void showNotificationForReportCreationFailed(Frame frame) {
+        frame.showNotification(messages.getMessage(getClass(), "reportCreationFailedMessage"),
+                Frame.NotificationType.ERROR);
     }
 }

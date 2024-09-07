@@ -10,13 +10,6 @@ buildscript {
             }
         }
 
-        maven {
-            url 'https://repo.cuba-platform.com/content/groups/premium'
-            credentials {
-                username("${rootProject['premiumRepoUser']}")
-                password("${rootProject['premiumRepoPass']}")
-            }
-        }
     }
     dependencies {
         classpath "com.haulmont.gradle:cuba-plugin:$cubaVersion"
@@ -44,7 +37,6 @@ cuba {
 dependencies {
     appComponent("com.haulmont.cuba:cuba-global:$cubaVersion")
     appComponent("com.haulmont.reports:reports-global:$cubaVersion")
-    appComponent('com.haulmont.addon.bproc:bproc-global:1.2.1')
 }
 
 def postgres = 'org.postgresql:postgresql:42.2.9'
