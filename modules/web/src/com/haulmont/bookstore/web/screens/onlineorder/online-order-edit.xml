@@ -17,6 +17,9 @@
         <form id="form" dataContainer="onlineOrderDc">
             <column width="350px">
                 <lookupField id="statusField" property="status" editable="false"/>
+                <textField id="cityField" property="address.city"/>
+                <textField id="streetField" property="address.street"/>
+                <textField id="buildingField" property="address.building"/>
                 <textField id="totalCostField" property="totalCost" editable="false"/>
                 <pickerField id="customerField" property="customer">
                     <actions>

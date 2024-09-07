@@ -34,7 +34,7 @@
             </actions>
             <columns>
                 <column id="fullName"/>
-                <column id="extendedUser"/>
+                <column id="user"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"

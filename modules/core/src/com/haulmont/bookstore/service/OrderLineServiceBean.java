@@ -1,6 +1,5 @@
 package com.haulmont.bookstore.service;
 
-import com.haulmont.bookstore.entity.Book;
 import com.haulmont.bookstore.entity.OrderLine;
 import com.haulmont.cuba.core.global.DataManager;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class OrderLineServiceBean implements OrderLineService {
     }
 
     @Override
-    public OrderLine createByBook(Book book) {
+    public OrderLine create() {
         return dataManager.create(OrderLine.class);
     }
 }

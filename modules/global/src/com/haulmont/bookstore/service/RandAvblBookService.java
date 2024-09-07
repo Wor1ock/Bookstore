@@ -4,8 +4,8 @@ import com.haulmont.bookstore.entity.Book;
 
 import java.util.List;
 
-public interface AvailableBookService {
+public interface RandAvblBookService {
     String NAME = "bookstore_BookService";
 
-    List<Book> getAllBooks();
+    List<Book> getBooks(List<Book> excludedBooks, int maxResult);
 }

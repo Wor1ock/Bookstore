@@ -25,7 +25,7 @@
                 <property name="bookPrice"/>
             </property>
         </property>
-        <property name="extendedUser" view="_minimal"/>
+        <property name="user" view="_minimal"/>
     </view>
     <view entity="bookstore_OrderLine" name="orderLine-view" extends="_local">
         <property name="book" view="_minimal"/>
