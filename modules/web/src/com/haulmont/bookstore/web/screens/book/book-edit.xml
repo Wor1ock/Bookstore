@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://bookEdit.caption"
+        focusComponent="form"
+        messagesPack="com.haulmont.bookstore.web.screens.book">
+    <data>
+        <instance id="bookDc"
+                  class="com.haulmont.bookstore.entity.Book">
+            <view extends="_local">
+                <property name="authors" view="_minimal">
+                    <property name="fullName"/>
+                </property>
+            </view>
+            <loader/>
+            <collection id="authorsDc" property="authors"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="bookDc">
+            <column width="350px">
+                <textField id="titleField" property="title"/>
+                <textField id="priceField" property="price"/>
+                <checkBox id="isAvailableField" property="isAvailable"/>
+            </column>
+        </form>
+        <groupBox id="authorsBox" caption="msg://com.haulmont.bookstore.entity/Book.authors">
+            <table id="authorsTable" dataContainer="authorsDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="fullName"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="authorsTable.add"/>
+                    <button action="authorsTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

@@ -12,15 +12,15 @@ import javax.validation.constraints.NotNull;
 public class Address extends EmbeddableEntity {
     private static final long serialVersionUID = 836218597002479049L;
 
-    @Column(name = "CITY", length = 100)
+    @Column(name = "CITY", nullable = false, length = 100)
     @NotNull
     private String city;
 
-    @Column(name = "STREET", length = 100)
+    @Column(name = "STREET", nullable = false, length = 100)
     @NotNull
     private String street;
 
-    @Column(name = "BUILDING", length = 5)
+    @Column(name = "BUILDING", nullable = false, length = 5)
     @NotNull
     private String building;
 
