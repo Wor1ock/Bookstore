@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
         xmlns:c="http://schemas.haulmont.com/cuba/screen/jpql_condition.xsd"
-        caption="msg://bookBrowse.caption"
-        focusComponent="booksTable"
-        messagesPack="com.haulmont.bookstore.web.screens.book">
+        caption="msg://customerBrowse.caption"
+        focusComponent="customersTable"
+        messagesPack="com.haulmont.bookstore.web.screens.customer">
     <data readOnly="true">
-        <collection id="booksDc"
-                    class="com.haulmont.bookstore.entity.Book"
-                    view="book-view">
-            <loader id="booksDl">
+        <collection id="customersDc"
+                    class="com.haulmont.bookstore.entity.Customer"
+                    view="customer-view">
+            <loader id="customersDl">
                 <query>
-                    <![CDATA[select e from bookstore_Book e]]>
+                    <![CDATA[select e from bookstore_Customer e]]>
                 </query>
             </loader>
         </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
-    <layout expand="booksTable"
+    <layout expand="customersTable"
             spacing="true">
         <filter id="filter"
-                applyTo="booksTable"
-                dataLoader="booksDl">
+                applyTo="customersTable"
+                dataLoader="customersDl">
             <properties include=".*"/>
         </filter>
-        <groupTable id="booksTable"
+        <groupTable id="customersTable"
                     width="100%"
-                    dataContainer="booksDc">
+                    dataContainer="customersDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
             </actions>
             <columns>
-                <column id="title"/>
-                <column id="price"/>
-                <column id="isAvailable"/>
+                <column id="fullName"/>
+                <column id="user"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
-                <button id="createBtn" action="booksTable.create"/>
-                <button id="editBtn" action="booksTable.edit"/>
-                <button id="removeBtn" action="booksTable.remove"/>
+                <button id="createBtn" action="customersTable.create"/>
+                <button id="editBtn" action="customersTable.edit"/>
+                <button id="removeBtn" action="customersTable.remove"/>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">

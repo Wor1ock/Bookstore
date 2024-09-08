@@ -5,12 +5,8 @@
         messagesPack="com.haulmont.bookstore.web.screens.book">
     <data>
         <instance id="bookDc"
-                  class="com.haulmont.bookstore.entity.Book">
-            <view extends="_local">
-                <property name="authors" view="_minimal">
-                    <property name="fullName"/>
-                </property>
-            </view>
+                  class="com.haulmont.bookstore.entity.Book"
+                  view="book-view">
             <loader/>
             <collection id="authorsDc" property="authors"/>
         </instance>

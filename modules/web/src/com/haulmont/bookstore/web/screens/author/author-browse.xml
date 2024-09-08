@@ -6,8 +6,8 @@
         messagesPack="com.haulmont.bookstore.web.screens.author">
     <data readOnly="true">
         <collection id="authorsDc"
-                    class="com.haulmont.bookstore.entity.Author">
-            <view extends="_local"/>
+                    class="com.haulmont.bookstore.entity.Author"
+                    view="author-view">
             <loader id="authorsDl">
                 <query>
                     <![CDATA[select e from bookstore_Author e]]>
@@ -25,8 +25,8 @@
             <properties include=".*"/>
         </filter>
         <groupTable id="authorsTable"
-               width="100%"
-               dataContainer="authorsDc">
+                    width="100%"
+                    dataContainer="authorsDc">
             <actions>
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>

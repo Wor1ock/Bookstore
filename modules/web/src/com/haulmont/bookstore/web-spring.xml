@@ -8,4 +8,14 @@
     
     <gui:screens base-packages="com.haulmont.bookstore.web"/>
     <gui:actions base-packages="com.haulmont.bookstore.actions"/>
+    <bean id="bookstore_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+        <property name="serverSelector" ref="cuba_ServerSelector"/>
+        <property name="remoteServices">
+            <map>
+                <entry key="bookstore_BookService" value="com.haulmont.bookstore.service.RandAvblBookService"/>
+                <entry key="bookstore_OrderLineService" value="com.haulmont.bookstore.service.OrderLineService"/>
+            </map>
+        </property>
+    </bean>
+
 </beans>

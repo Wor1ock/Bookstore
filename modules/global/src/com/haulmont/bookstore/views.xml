@@ -1,4 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <views xmlns="http://schemas.haulmont.com/cuba/view.xsd">
 
+    <view entity="bookstore_Author" name="author-view" extends="_local">
+        <property name="books" view="_minimal"/>
+    </view>
+    <view entity="bookstore_Book" name="book-view" extends="_local">
+        <property name="authors" view="_minimal">
+            <property name="fullName"/>
+        </property>
+    </view>
+    <view entity="bookstore_Customer" name="customer-view" extends="_local">
+        <property name="onlineOrders" view="_minimal">
+            <property name="status"/>
+            <property name="address" view="_minimal">
+                <property name="city"/>
+                <property name="street"/>
+                <property name="building"/>
+            </property>
+            <property name="totalCost"/>
+            <property name="orderLines" view="_minimal">
+                <property name="quantity"/>
+                <property name="book" view="_minimal"/>
+                <property name="bookTitle"/>
+                <property name="bookPrice"/>
+            </property>
+        </property>
+        <property name="user" view="_minimal"/>
+    </view>
+    <view entity="bookstore_OrderLine" name="orderLine-view" extends="_local">
+        <property name="book" view="_minimal"/>
+    </view>
+    <view entity="bookstore_OnlineOrder" name="onlineOrder-view" extends="_local">
+        <property name="address" view="_minimal">
+            <property name="city"/>
+            <property name="street"/>
+            <property name="building"/>
+        </property>
+        <property name="totalCost"/>
+        <property name="orderLines" view="_minimal">
+            <property name="quantity"/>
+            <property name="book" view="_minimal"/>
+            <property name="bookTitle"/>
+            <property name="bookPrice"/>
+            <property name="onlineOrder" view="_minimal"/>
+        </property>
+        <property name="customer" view="_minimal">
+            <property name="fullName"/>
+        </property>
+    </view>
 </views>
