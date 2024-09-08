@@ -92,4 +92,9 @@ public class GenerateBooksByAuthorAction extends ItemTrackingAction {
         frame.showNotification(messages.getMessage(getClass(), "reportCreationFailedMessage"),
                 Frame.NotificationType.ERROR);
     }
+
+//    @Override
+//    protected boolean isPermitted() {
+//        return security.isSpecificPermitted("generateBooksByAuthorReport");
+//    }
 }
