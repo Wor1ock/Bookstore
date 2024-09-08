@@ -1,5 +1,6 @@
 package com.haulmont.bookstore.entity;
 
+import com.haulmont.chile.core.annotations.NamePattern;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.cuba.core.entity.annotation.OnDelete;
 import com.haulmont.cuba.core.global.DeletePolicy;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Table(name = "BOOKSTORE_CUSTOMER")
 @Entity(name = "bookstore_Customer")
+@NamePattern("%s|fullName")
 public class Customer extends StandardEntity {
     private static final long serialVersionUID = -1467985972714221375L;
 
@@ -41,5 +43,13 @@ public class Customer extends StandardEntity {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
