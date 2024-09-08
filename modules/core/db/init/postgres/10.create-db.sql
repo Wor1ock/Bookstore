@@ -69,7 +69,7 @@ create table BOOKSTORE_BOOK (
     IS_AVAILABLE boolean,
     --
     primary key (ID)
-);
+)^
 -- end BOOKSTORE_BOOK
 -- begin BOOKSTORE_ORDER_LINE
 create table BOOKSTORE_ORDER_LINE (
@@ -89,7 +89,7 @@ create table BOOKSTORE_ORDER_LINE (
     ONLINE_ORDER_ID uuid not null,
     --
     primary key (ID)
-);
+)^
 -- end BOOKSTORE_ORDER_LINE
 -- begin BOOKSTORE_BOOK_AUTHOR_LINK
 create table BOOKSTORE_BOOK_AUTHOR_LINK (

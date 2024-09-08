@@ -11,7 +11,7 @@ import java.util.List;
 public class UserServiceBean implements UserService {
     @Inject
     private DataManager dataManager;
-    private static final String MANAGER_ROLE_NAME = "StoreEmployee";
+    private static final String MANAGER_ROLE_NAME = "StoreEmployeeRole";
 
     public List<User> findStoreEmployees() {
         List<User> managers = dataManager.load(User.class)

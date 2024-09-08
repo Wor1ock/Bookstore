@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -58,9 +59,9 @@ public class OnlineOrderServiceBean implements OnlineOrderService {
         LocalDateTime thresholdTime = now.minusMinutes(notificationDelay);
 
         return dataManager.load(OnlineOrder.class)
-                .query("SELECT o FROM bookstore_OnlineOrder o WHERE o.status=:initialStatus AND o.createdDate<=:thresholdTime")
-                .parameter("initialStatus", Status.NEW)
-                .parameter("thresholdTime", thresholdTime)
+                .query("SELECT o FROM bookstore_OnlineOrder o WHERE o.status=:initialStatus AND o.createTs<=:thresholdTime")
+                .parameter("initialStatus", Status.CONFIRMED)
+                .parameter("thresholdTime", Timestamp.valueOf(thresholdTime))
                 .list();
     }
 }
