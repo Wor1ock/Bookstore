@@ -50,8 +50,7 @@ public class GenerateBooksByAuthorAction extends ItemTrackingAction {
             Report report = loadReportByCode(REPORT_CODE);
             if (report == null) {
                 log.warn("Report with code {} not found", REPORT_CODE);
-                frame.showNotification(messages.getMessage(AuthorBrowse.class, "reportNotFoundMessage"),
-                        Frame.NotificationType.ERROR);
+                showNotificationForReportCreationFailed(frame);
                 return;
             }
 
