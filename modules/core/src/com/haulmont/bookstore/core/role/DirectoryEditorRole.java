@@ -19,7 +19,7 @@ public class DirectoryEditorRole extends AnnotatedRoleDefinition {
         return super.screenPermissions();
     }
 
-    @EntityAccess(entityClass = FileDescriptor.class, operations = {EntityOp.CREATE, EntityOp.READ})
+    @EntityAccess(entityClass = FileDescriptor.class, operations = EntityOp.READ)
     @EntityAccess(entityClass = Report.class, operations = {EntityOp.CREATE, EntityOp.READ})
     @EntityAccess(entityClass = Author.class, operations = {EntityOp.CREATE, EntityOp.UPDATE, EntityOp.READ, EntityOp.DELETE})
     @EntityAccess(entityClass = Book.class, operations = {EntityOp.CREATE, EntityOp.UPDATE, EntityOp.READ, EntityOp.DELETE})
@@ -37,7 +37,7 @@ public class DirectoryEditorRole extends AnnotatedRoleDefinition {
         return super.entityAttributePermissions();
     }
 
-    @SpecificAccess(permissions = "generateBooksByAuthorReport")
+    @SpecificAccess(permissions = {"generateBooksByAuthorReport", "generateReportBtn", "allow-generateBooksByAuthorReport"})
     @Override
     public SpecificPermissionsContainer specificPermissions() {
         return super.specificPermissions();
