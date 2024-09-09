@@ -10,8 +10,8 @@ import com.haulmont.cuba.security.entity.EntityOp;
 @AccessGroup(name = "Root")
 public class RootGroup extends AnnotatedAccessGroupDefinition {
 
-    @Constraint(operations = {EntityOp.UPDATE, EntityOp.DELETE})
-    public boolean customerConstraints(OnlineOrder onlineOrder) {
-        return onlineOrder.getStatus() != Status.CONFIRMED;
-    }
+//    @Constraint(operations = {EntityOp.UPDATE, EntityOp.DELETE})
+//    public boolean customerConstraints(OnlineOrder onlineOrder) {
+//        return onlineOrder.getStatus() != Status.CONFIRMED;
+//    }
 }
