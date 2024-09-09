@@ -46,6 +46,7 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     private CustomerByUserService customerByUserService;
     @Inject
     private UserSessionSource userSessionSource;
+    @Inject
     private Button addOrderLineBtn;
 
     @Subscribe
