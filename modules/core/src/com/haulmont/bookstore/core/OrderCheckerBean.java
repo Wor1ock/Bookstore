@@ -19,8 +19,7 @@ public class OrderCheckerBean implements OrderChecker {
 
     public void checkOrders() {
         Integer delay = myAppConfig.getNotificationDelay();
-        log.info("Проверка заказов. Время задержки: {} минут", delay);
+        log.info("Checking orders. Notification delay: {} minutes", delay);
         onlineOrderService.checkUnprocessedOrders(delay);
     }
-
 }

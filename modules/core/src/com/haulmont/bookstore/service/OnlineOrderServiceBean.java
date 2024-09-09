@@ -7,7 +7,6 @@ import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.EmailInfo;
 import com.haulmont.cuba.security.entity.User;
 import org.slf4j.Logger;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -30,7 +29,7 @@ public class OnlineOrderServiceBean implements OnlineOrderService {
         List<OnlineOrder> unprocessedOrders = findUnprocessedOrders(delay);
         List<User> storeEmployees = userService.findStoreEmployees();
         if (unprocessedOrders.isEmpty() || storeEmployees.isEmpty()) {
-            log.info("Нет необработанных заказов или сотрудников магазина для уведомлений");
+            log.info("No unprocessed orders or store employees for notifications");
             return;
         }
 
