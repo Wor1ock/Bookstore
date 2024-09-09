@@ -8,5 +8,6 @@
         <class>com.haulmont.bookstore.entity.OnlineOrder</class>
         <class>com.haulmont.bookstore.entity.Address</class>
         <class>com.haulmont.bookstore.entity.Customer</class>
+        <class>com.haulmont.bookstore.entity.ExtUser</class>
     </persistence-unit>
 </persistence>

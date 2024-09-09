@@ -1,10 +1,13 @@
 package com.haulmont.bookstore.web.screens.onlineorder;
 
 import com.haulmont.bookstore.config.OrdersConfig;
+import com.haulmont.bookstore.entity.Customer;
 import com.haulmont.bookstore.entity.OnlineOrder;
 import com.haulmont.bookstore.entity.OrderLine;
 import com.haulmont.bookstore.entity.Status;
+import com.haulmont.bookstore.service.CustomerByUserService;
 import com.haulmont.bookstore.web.OrderLineBean;
+import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.TextField;
@@ -39,10 +42,18 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     private OrderLineBean orderLineBean;
     @Inject
     private DataContext dataContext;
+    @Inject
+    private CustomerByUserService customerByUserService;
+    @Inject
+    private UserSessionSource userSessionSource;
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<OnlineOrder> event) {
         event.getEntity().setStatus(Status.NEW);
+        List<Customer> customers = customerByUserService.getCustomersByUser(userSessionSource.getUserSession().getUser());
+        if (!customers.isEmpty()) {
+            event.getEntity().setCustomer(customers.get(0));
+        }
     }
 
     @Subscribe("addOrderLineBtn")

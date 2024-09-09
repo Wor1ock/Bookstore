@@ -41,7 +41,7 @@ public class CustomerRole extends AnnotatedRoleDefinition {
         return super.entityAttributePermissions();
     }
 
-    @ScreenComponentAccess(screenId = "bookstore_OnlineOrder.edit", deny = "confirmBtn")
+    @ScreenComponentAccess(screenId = "bookstore_OnlineOrder.edit", deny = {"confirmBtn", "customerField"})
     @Override
     public ScreenComponentPermissionsContainer screenComponentPermissions() {
         return super.screenComponentPermissions();
