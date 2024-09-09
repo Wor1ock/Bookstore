@@ -12,6 +12,6 @@ public class RootGroup extends AnnotatedAccessGroupDefinition {
 
     @Constraint(operations = {EntityOp.UPDATE, EntityOp.DELETE})
     public boolean customerConstraints(OnlineOrder onlineOrder) {
-        return onlineOrder.getStatus().compareTo(Status.CONFIRMED) != 0;
+        return onlineOrder.getStatus() != Status.CONFIRMED;
     }
 }
