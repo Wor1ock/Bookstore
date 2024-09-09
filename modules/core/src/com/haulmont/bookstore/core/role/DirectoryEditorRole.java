@@ -37,15 +37,16 @@ public class DirectoryEditorRole extends AnnotatedRoleDefinition {
         return super.entityAttributePermissions();
     }
 
-    @SpecificAccess(permissions = {"generateBooksByAuthorReport", "generateReportBtn", "allow-generateBooksByAuthorReport"})
-    @Override
-    public SpecificPermissionsContainer specificPermissions() {
-        return super.specificPermissions();
-    }
 
     @ScreenComponentAccess(screenId = "bookstore_Author.browse", view = "generateReportBtn")
     @Override
     public ScreenComponentPermissionsContainer screenComponentPermissions() {
         return super.screenComponentPermissions();
+    }
+
+    @SpecificAccess(permissions = "allow-generateBooksByAuthorReport")
+    @Override
+    public SpecificPermissionsContainer specificPermissions() {
+        return super.specificPermissions();
     }
 }

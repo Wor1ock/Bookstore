@@ -29,8 +29,8 @@
                     dataContainer="onlineOrdersDc">
             <actions>
                 <action id="create" type="create"/>
-                <action id="edit" type="edit"/>
-                <action id="remove" type="remove"/>
+                <action id="edit" type="edit" constraintOperationType="update"/>
+                <action id="remove" type="remove" constraintOperationType="delete"/>
             </actions>
             <columns>
                 <column id="status"/>
