@@ -59,7 +59,7 @@ public class OnlineOrderServiceBean implements OnlineOrderService {
 
         return dataManager.load(OnlineOrder.class)
                 .query("SELECT o FROM bookstore_OnlineOrder o WHERE o.status=:initialStatus AND o.createTs<=:thresholdTime")
-                .parameter("initialStatus", Status.CONFIRMED)
+                .parameter("initialStatus", Status.NEW)
                 .parameter("thresholdTime", Timestamp.valueOf(thresholdTime))
                 .list();
     }
