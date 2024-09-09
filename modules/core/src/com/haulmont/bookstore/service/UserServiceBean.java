@@ -9,9 +9,9 @@ import java.util.List;
 
 @Service(UserService.NAME)
 public class UserServiceBean implements UserService {
+    private static final String MANAGER_ROLE_NAME = "StoreEmployeeRole";
     @Inject
     private DataManager dataManager;
-    private static final String MANAGER_ROLE_NAME = "StoreEmployeeRole";
 
     public List<User> findStoreEmployees() {
         List<User> managers = dataManager.load(User.class)
