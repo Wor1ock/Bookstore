@@ -58,6 +58,20 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
         }
     }
 
+    @Subscribe
+    public void onBeforeShow(BeforeShowEvent event) {
+        List<OrderLine> orderLines = orderLinesDc.getMutableItems();
+        if (getEditedEntity().getStatus() == Status.CONFIRMED){
+            notifications.create().withCaption(messageBundle.getMessage("isUnavailableToEdit")).show();
+            getWindow().getComponent("form").setEnabled(false);
+            getWindow().getComponent("orderLinesBox").setEnabled(false);
+            getWindow().getComponent("confirmBtn").setEnabled(false);
+        }
+        if (orderLines.size() == ordersConfig.getMaxCountOrderLines()){
+            addOrderLineBtn.setEnabled(false);
+        }
+    }
+
     @Subscribe("addOrderLineBtn")
     public void onAddOrderLineBtnClick(Button.ClickEvent event) {
         addOrderLinesInOrder(1);
@@ -97,6 +111,8 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     public void onConfirmBtnClick(Button.ClickEvent event) {
         if (!orderLinesDc.getMutableItems().isEmpty()) {
             getEditedEntity().setStatus(Status.CONFIRMED);
+            getWindow().getComponent("form").setEnabled(false);
+            getWindow().getComponent("orderLinesBox").setEnabled(false);
         } else {
             notifications.create().withCaption(messageBundle.getMessage("noOrderLines")).show();
         }
