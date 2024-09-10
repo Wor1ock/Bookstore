@@ -44,6 +44,7 @@ public class StoreEmployeeRole extends AnnotatedRoleDefinition {
         return super.specificPermissions();
     }
 
+    @ScreenComponentAccess(screenId = "bookstore_Author.browse", deny = "generateReportBtn")
     @ScreenComponentAccess(screenId = "bookstore_OnlineOrder.edit", modify = "confirmBtn")
     @Override
     public ScreenComponentPermissionsContainer screenComponentPermissions() {
