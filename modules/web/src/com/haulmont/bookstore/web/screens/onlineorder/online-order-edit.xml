@@ -42,7 +42,7 @@
                 </columns>
                 <buttonsPanel>
                     <button id="addOrderLineBtn" caption="msg://add"/>
-                    <button id="excludeBtn" action="orderLinesTable.exclude"/>
+                    <button id="excludeBtn" caption="msg://exclude"/>
                     <button id="generate" caption="msg://generate"/>
                 </buttonsPanel>
             </table>
