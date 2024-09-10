@@ -31,7 +31,7 @@
                 <action id="create" type="create"/>
                 <action id="edit" type="edit"/>
                 <action id="remove" type="remove"/>
-                <action id="report" type="generateBooksByAuthorReport" trackSelection="true" icon="FILE_EXCEL_O"/>
+                <action id="report" type="generateBooksByAuthorReport" trackSelection="true" icon="FILE_EXCEL_O" />
             </actions>
             <columns>
                 <column id="fullName"/>
