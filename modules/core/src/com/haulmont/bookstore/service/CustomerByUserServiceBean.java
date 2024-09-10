@@ -18,10 +18,11 @@ public class CustomerByUserServiceBean implements CustomerByUserService {
     }
 
     @Override
-    public List<Customer> getCustomersByUser(User user) {
+    public List<Customer> getCustomersByUser(User user, int quantity) {
         return dataManager.load(Customer.class)
                 .query("select b from bookstore_Customer b where b.user = :user")
                 .parameter("user", user)
+                .maxResults(quantity)
                 .list();
     }
 }

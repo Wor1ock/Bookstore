@@ -24,10 +24,12 @@ public class UserChangedListener {
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     public void onUserAfterCommit(EntityChangedEvent<User, UUID> event) {
-        Customer customer = dataManager.create(Customer.class);
-        User user = dataManager.load(User.class).id(event.getEntityId().getValue()).one();
-        customer.setUser(user);
-        customer.setFullName(user.getName());
-        dataManager.commit(customer);
+        if (event.getType().equals(EntityChangedEvent.Type.CREATED)) {
+            Customer customer = dataManager.create(Customer.class);
+            User user = dataManager.load(User.class).id(event.getEntityId().getValue()).one();
+            customer.setUser(user);
+            customer.setFullName(user.getName());
+            dataManager.commit(customer);
+        }
     }
 }

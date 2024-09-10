@@ -10,6 +10,7 @@ import com.haulmont.bookstore.web.OrderLineBean;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
+import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
@@ -48,13 +49,19 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     private UserSessionSource userSessionSource;
     @Inject
     private Button addOrderLineBtn;
+    @Inject
+    private PickerField<Customer> customerField;
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<OnlineOrder> event) {
         event.getEntity().setStatus(Status.NEW);
-        List<Customer> customers = customerByUserService.getCustomersByUser(userSessionSource.getUserSession().getUser());
+        List<Customer> customers = customerByUserService.getCustomersByUser(userSessionSource.getUserSession()
+                .getUser(), 1);
         if (!customers.isEmpty()) {
             event.getEntity().setCustomer(customers.get(0));
+            customerField.setEditable(false);
+        } else {
+            customerField.setEditable(true);
         }
     }
 

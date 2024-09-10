@@ -8,5 +8,5 @@ import java.util.List;
 public interface CustomerByUserService {
     String NAME = "bookstore_CustomerByUserService";
 
-    List<Customer> getCustomersByUser(User user);
+    List<Customer> getCustomersByUser(User user, int quantity);
 }
