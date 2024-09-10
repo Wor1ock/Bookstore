@@ -1,12 +1,16 @@
 package com.haulmont.bookstore.web.screens.onlineorder;
 
 import com.haulmont.bookstore.config.OrdersConfig;
+import com.haulmont.bookstore.entity.Customer;
 import com.haulmont.bookstore.entity.OnlineOrder;
 import com.haulmont.bookstore.entity.OrderLine;
 import com.haulmont.bookstore.entity.Status;
+import com.haulmont.bookstore.service.CustomerByUserService;
 import com.haulmont.bookstore.web.OrderLineBean;
+import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
+import com.haulmont.cuba.gui.components.PickerField;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
@@ -40,11 +44,25 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     @Inject
     private DataContext dataContext;
     @Inject
+    private CustomerByUserService customerByUserService;
+    @Inject
+    private UserSessionSource userSessionSource;
+    @Inject
     private Button addOrderLineBtn;
+    @Inject
+    private PickerField<Customer> customerField;
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<OnlineOrder> event) {
         event.getEntity().setStatus(Status.NEW);
+        Customer customer = customerByUserService.getCustomerByUser(userSessionSource.getUserSession()
+                .getUser());
+        if (customer != null) {
+            event.getEntity().setCustomer(customer);
+            customerField.setEditable(false);
+        } else {
+            customerField.setEditable(true);
+        }
     }
 
     @Subscribe
