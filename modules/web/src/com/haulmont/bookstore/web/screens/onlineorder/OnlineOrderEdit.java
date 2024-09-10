@@ -55,10 +55,10 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     @Subscribe
     public void onInitEntity(InitEntityEvent<OnlineOrder> event) {
         event.getEntity().setStatus(Status.NEW);
-        List<Customer> customers = customerByUserService.getCustomersByUser(userSessionSource.getUserSession()
-                .getUser(), 1);
-        if (!customers.isEmpty()) {
-            event.getEntity().setCustomer(customers.get(0));
+        Customer customers = customerByUserService.getCustomerByUser(userSessionSource.getUserSession()
+                .getUser());
+        if (customers != null) {
+            event.getEntity().setCustomer(customers);
             customerField.setEditable(false);
         } else {
             customerField.setEditable(true);

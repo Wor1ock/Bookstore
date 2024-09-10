@@ -6,7 +6,6 @@ import com.haulmont.cuba.security.entity.User;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @Service(CustomerByUserService.NAME)
 public class CustomerByUserServiceBean implements CustomerByUserService {
@@ -18,11 +17,11 @@ public class CustomerByUserServiceBean implements CustomerByUserService {
     }
 
     @Override
-    public List<Customer> getCustomersByUser(User user, int quantity) {
+    public Customer getCustomerByUser(User user) {
         return dataManager.load(Customer.class)
                 .query("select b from bookstore_Customer b where b.user = :user")
                 .parameter("user", user)
-                .maxResults(quantity)
-                .list();
+                .optional()
+                .orElse(null);
     }
 }
