@@ -16,6 +16,8 @@
                 <entry key="bookstore_UserService" value="com.haulmont.bookstore.service.UserService"/>
                 <entry key="bookstore_BookService" value="com.haulmont.bookstore.service.RandAvblBookService"/>
                 <entry key="bookstore_OrderLineService" value="com.haulmont.bookstore.service.OrderLineService"/>
+                <entry key="bookstore_CustomerByUserService"
+                       value="com.haulmont.bookstore.service.CustomerByUserService"/>
             </map>
         </property>
     </bean>
