@@ -13,7 +13,7 @@ import com.haulmont.cuba.security.role.ScreenPermissionsContainer;
 public class CustomerRole extends AnnotatedRoleDefinition {
     public final static String NAME = "Customer";
 
-    @ScreenAccess(screenIds = {"application-bookstore", "bookstore_Author.browse", "bookstore_Book.browse", "bookstore_OnlineOrder.browse", "bookstore_OnlineOrder.edit", "bookstore_Customer.browse"})
+    @ScreenAccess(screenIds = {"application-bookstore", "bookstore_Author.browse", "bookstore_Book.browse", "bookstore_OnlineOrder.browse", "bookstore_OnlineOrder.edit", "bookstore_Author.edit", "bookstore_Book.edit"})
     @Override
     public ScreenPermissionsContainer screenPermissions() {
         return super.screenPermissions();
@@ -42,7 +42,7 @@ public class CustomerRole extends AnnotatedRoleDefinition {
     }
 
     @ScreenComponentAccess(screenId = "bookstore_Author.browse", deny = "generateReportBtn")
-    @ScreenComponentAccess(screenId = "bookstore_OnlineOrder.edit", deny = "confirmBtn")
+    @ScreenComponentAccess(screenId = "bookstore_OnlineOrder.edit", deny = "confirmBtn", view = "customerField")
     @Override
     public ScreenComponentPermissionsContainer screenComponentPermissions() {
         return super.screenComponentPermissions();

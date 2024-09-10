@@ -10,7 +10,7 @@ import com.haulmont.cuba.security.role.*;
 public class StoreEmployeeRole extends AnnotatedRoleDefinition {
     public final static String NAME = "StoreEmployeeRole";
 
-    @ScreenAccess(screenIds = {"application-bookstore", "bookstore_Book.browse", "bookstore_Author.browse", "bookstore_OnlineOrder.browse", "bookstore_OnlineOrder.edit", "bookstore_Customer.browse"})
+    @ScreenAccess(screenIds = {"application-bookstore", "bookstore_Book.browse", "bookstore_Author.browse", "bookstore_OnlineOrder.browse", "bookstore_OnlineOrder.edit", "bookstore_Customer.browse", "bookstore_Author.edit", "bookstore_Book.edit", "bookstore_Customer.edit"})
     @Override
     public ScreenPermissionsContainer screenPermissions() {
         return super.screenPermissions();
