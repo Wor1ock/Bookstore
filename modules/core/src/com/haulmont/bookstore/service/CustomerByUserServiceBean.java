@@ -18,10 +18,18 @@ public class CustomerByUserServiceBean implements CustomerByUserService {
 
     @Override
     public Customer getCustomerByUser(User user) {
-        return dataManager.load(Customer.class)
+
+        Customer customer = dataManager.load(Customer.class)
                 .query("select b from bookstore_Customer b where b.user = :user")
                 .parameter("user", user)
                 .optional()
                 .orElse(null);
+        if (customer == null) {
+            customer = dataManager.create(Customer.class);
+            customer.setUser(user);
+            customer.setFullName(user.getName());
+            dataManager.commit(customer);
+        }
+        return customer;
     }
 }
