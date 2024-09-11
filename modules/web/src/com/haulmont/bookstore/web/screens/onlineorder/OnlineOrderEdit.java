@@ -11,7 +11,6 @@ import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.PickerField;
-import com.haulmont.cuba.gui.components.Table;
 import com.haulmont.cuba.gui.components.TextField;
 import com.haulmont.cuba.gui.model.CollectionContainer;
 import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
@@ -52,8 +51,6 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     private Button addOrderLineBtn;
     @Inject
     private PickerField<Customer> customerField;
-    @Inject
-    private Table<OrderLine> orderLinesTable;
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<OnlineOrder> event) {
@@ -85,18 +82,6 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     @Subscribe("addOrderLineBtn")
     public void onAddOrderLineBtnClick(Button.ClickEvent event) {
         addOrderLinesInOrder(1);
-    }
-
-    @Subscribe("excludeBtn")
-    public void onExcludeBtnClick(Button.ClickEvent event) {
-        OrderLine orderLine = orderLinesTable.getSingleSelected();
-        if (orderLine != null) {
-            orderLinesDc.getMutableItems().remove(orderLine);
-            dataContext.remove(orderLine);
-            totalCostField.setValue(getEditedEntity().getTotalCost());
-        } else {
-            notifications.create().withCaption(messageBundle.getMessage("noOrderLineSelected")).show();
-        }
     }
 
     @Subscribe("generate")
