@@ -60,8 +60,6 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
         if (customer != null) {
             event.getEntity().setCustomer(customer);
             customerField.setEditable(false);
-        } else {
-            customerField.setEditable(true);
         }
     }
 
