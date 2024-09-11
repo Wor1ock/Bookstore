@@ -6,6 +6,7 @@ import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Table(name = "BOOKSTORE_ORDER_LINE")
@@ -15,6 +16,7 @@ public class OrderLine extends StandardEntity {
 
     @Column(name = "QUANTITY", nullable = false)
     @NotNull
+    @Positive
     private Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -7,6 +7,7 @@ import com.haulmont.cuba.core.global.DeletePolicy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class Book extends StandardEntity {
     private List<Author> authors;
 
     @Column(name = "PRICE", precision = 10, scale = 2)
+    @PositiveOrZero
     private BigDecimal price;
 
     @Column(name = "IS_AVAILABLE")
