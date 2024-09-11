@@ -25,13 +25,11 @@ public class CustomerByUserServiceBean implements CustomerByUserService {
                 .optional()
                 .orElse(null);
 
-        customer = dataManager.commit(customer);
-
         if (customer == null) {
             customer = dataManager.create(Customer.class);
             customer.setUser(user);
             customer.setFullName(user.getName());
-            dataManager.commit(customer);
+            customer = dataManager.commit(customer);
         }
 
         return customer;
