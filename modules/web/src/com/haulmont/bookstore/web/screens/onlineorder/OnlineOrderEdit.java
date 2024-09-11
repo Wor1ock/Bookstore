@@ -7,6 +7,7 @@ import com.haulmont.bookstore.entity.OrderLine;
 import com.haulmont.bookstore.entity.Status;
 import com.haulmont.bookstore.service.CustomerByUserService;
 import com.haulmont.bookstore.web.OrderLineBean;
+import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.UserSessionSource;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.components.Button;
@@ -17,6 +18,7 @@ import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.DataContext;
 import com.haulmont.cuba.gui.model.InstanceContainer;
 import com.haulmont.cuba.gui.screen.*;
+import com.haulmont.cuba.security.entity.User;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
@@ -57,12 +59,8 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
         event.getEntity().setStatus(Status.NEW);
         Customer customer = customerByUserService.getCustomerByUser(userSessionSource.getUserSession()
                 .getUser());
-        if (customer != null) {
-            event.getEntity().setCustomer(customer);
-            customerField.setEditable(false);
-        } else {
-            customerField.setEditable(true);
-        }
+        event.getEntity().setCustomer(customer);
+        customerField.setEditable(false);
     }
 
     @Subscribe
