@@ -33,7 +33,7 @@
             <table id="orderLinesTable" dataContainer="orderLinesDc"
                    editable="true" width="100%" height="200px">
                 <actions>
-                    <action id="exclude" type="exclude"/>
+                    <action id="remove" type="remove"/>
                 </actions>
                 <columns>
                     <column id="quantity" editable="true"/>
@@ -42,7 +42,7 @@
                 </columns>
                 <buttonsPanel>
                     <button id="addOrderLineBtn" caption="msg://add"/>
-                    <button id="excludeBtn" action="orderLinesTable.exclude"/>
+                    <button id="removeBtn" action="orderLinesTable.remove"/>
                     <button id="generate" caption="msg://generate"/>
                 </buttonsPanel>
             </table>
