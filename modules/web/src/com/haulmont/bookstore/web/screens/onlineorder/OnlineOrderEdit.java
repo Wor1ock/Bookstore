@@ -53,8 +53,6 @@ public class OnlineOrderEdit extends StandardEditor<OnlineOrder> {
     private Button addOrderLineBtn;
     @Inject
     private PickerField<Customer> customerField;
-    @Inject
-    private DataManager dataManager;
 
     @Subscribe
     public void onInitEntity(InitEntityEvent<OnlineOrder> event) {
